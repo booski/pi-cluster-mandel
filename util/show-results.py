@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import os
 from PIL import Image
@@ -9,7 +11,7 @@ itermax = int(sys.argv[2])
 width = size
 height = size
 
-resultdir = base + "../rundir/results"
+resultdir = base + "/../rundata/results"
 resultlist = {}
 for result in os.listdir(resultdir):
     with open(resultdir + "/" + result) as infile:
