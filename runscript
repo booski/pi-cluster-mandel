@@ -14,21 +14,21 @@ cwd=$(dirname "$0")
 hostdir="$cwd/workdata"
 hosts=$(ls "$hostdir")
 hostcount=$(echo "$hosts" | wc -w)
-sizefile="$cwd"/size
-iterfile="$cwd"/iterations
+sizefile="$cwd"/util/size
+iterfile="$cwd"/util/iterations
 
 echo "$iterations" > "$iterfile"
 
 if ! [ "$size" = "$(cat "$sizefile")" ]; then
     echo "Initializing data..." | ts
-    "$cwd"/mandelbrot-points.sh "$size"
+    "$cwd"/util/mandelbrot-points.sh "$size"
     echo "$size" > "$sizefile"
 else
     echo "Data is already initialized." | ts
 fi
 
 echo "Computing set..." | ts
-parallel -j"$hostcount" "$cwd/hostscript" -- $hosts
+parallel -j"$hostcount" "$cwd"/util/hostscript -- $hosts
 echo "Compiling image..." | ts
-python "$cwd"/show-results.py "$size" "$iterations"
+python "$cwd"/util/show-results.py "$size" "$iterations"
 echo "Done!" | ts
