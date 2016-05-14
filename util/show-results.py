@@ -14,9 +14,10 @@ height = size
 resultdir = base + "/../rundata/results"
 resultlist = {}
 for result in os.listdir(resultdir):
-    with open(resultdir + "/" + result) as infile:
-        resultlist.update({(int(x),int(y)): int(i) for (x,y,i) in [tuple(line.strip().split(',')) for line in infile]})
-
+    if not result.startswith('.'):
+        with open(resultdir + "/" + result) as infile:
+            resultlist.update({(int(x),int(y)): int(i) for (x,y,i) in [tuple(line.strip().split(',')) for line in infile]})
+            
 img = Image.new('RGB', (width,height), "white")
 pixels = img.load()
 
