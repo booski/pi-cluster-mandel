@@ -9,7 +9,7 @@ itermax = int(sys.argv[2])
 width = size
 height = size
 
-resultdir = base + "/results"
+resultdir = base + "../rundir/results"
 resultlist = {}
 for result in os.listdir(resultdir):
     with open(resultdir + "/" + result) as infile:
@@ -33,4 +33,4 @@ for x in range(img.size[0]):
             pixels[x,y] = getColor(iteration, itermax)
 
 
-img.save(base + "/images/" + "result-" + time.strftime("%y%m%d-%H%M") + ".png")
+img.save(base + "/../images/" + "result-" + time.strftime("%y%m%d-%H%M") + ".png")

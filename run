@@ -11,11 +11,10 @@ size=$1
 iterations=$2
 
 cwd=$(dirname "$0")
-hostdir="$cwd/workdata"
-hosts=$(ls "$hostdir")
+hosts=$(cat "$cwd"/rundata/machines.list)
 hostcount=$(echo "$hosts" | wc -w)
-sizefile="$cwd"/util/size
-iterfile="$cwd"/util/iterations
+sizefile="$cwd"/rundata/size
+iterfile="$cwd"/rundata/iterations
 
 echo "$iterations" > "$iterfile"
 

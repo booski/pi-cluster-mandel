@@ -17,8 +17,8 @@ points() {
 }
 
 cwd=$(dirname "$0")
-machinefile="$cwd"/machines.list
-workdir="$cwd"/workdata
+machinefile="$cwd"/../rundata/machines.list
+workdir="$cwd"/../workdata
 declare -A machines
 i=1
 for machine in $(cat "$machinefile"); do
