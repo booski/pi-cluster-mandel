@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+cwd=$(dirname "$0")
+host=$1
+
+size=$(cat "$cwd"/size)
+iterations=$(cat "$cwd"/iterations)
+
+printf "iterations=$iterations\nsize=$size\n$(cat "$cwd"/script.py)" \
+    | ssh "$host.local" python > "$cwd/results/$host.out"

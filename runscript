@@ -1,0 +1,34 @@
+#!/bin/sh
+
+if [ "$#" -lt 2 ]; then
+    echo "Usage: $0 <size> <iterations>"
+    exit 1
+fi
+
+echo "Setting up..." | ts
+
+size=$1
+iterations=$2
+
+cwd=$(dirname "$0")
+hostdir="$cwd/workdata"
+hosts=$(ls "$hostdir")
+hostcount=$(echo "$hosts" | wc -w)
+sizefile="$cwd"/size
+iterfile="$cwd"/iterations
+
+echo "$iterations" > "$iterfile"
+
+if ! [ "$size" = "$(cat "$sizefile")" ]; then
+    echo "Initializing data..." | ts
+    "$cwd"/mandelbrot-points.sh "$size"
+    echo "$size" > "$sizefile"
+else
+    echo "Data is already initialized." | ts
+fi
+
+echo "Computing set..." | ts
+parallel -j"$hostcount" "$cwd/hostscript" -- $hosts
+echo "Compiling image..." | ts
+python "$cwd"/show-results.py "$size" "$iterations"
+echo "Done!" | ts
