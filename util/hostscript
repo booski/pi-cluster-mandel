@@ -7,6 +7,11 @@ host=$1
 
 size=$(cat "$cwd"/../rundata/size)
 iterations=$(cat "$cwd"/../rundata/iterations)
+resultfile="$cwd"/../rundata/results/"$host".out
+fakeargs="iterations=$iterations\nsize=$size"
+scriptfile="$cwd"/script.py
 
-printf "iterations=$iterations\nsize=$size\n$(cat "$cwd"/script.py)" \
-    | ssh "$host.local" python > "$cwd/../rundata/results/$host.out"
+rm -f "$resultfile"
+
+printf "$fakeargs\n$(cat $scriptfile)" \
+    | ssh "$host.local" python > "$resultfile"

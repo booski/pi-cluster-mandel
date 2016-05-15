@@ -6,6 +6,13 @@ width = int(size)
 height = int(size)
 iterations = int(iterations)
 
+mandelbox = {'x':(-0.6, -0.3), 'y':(-0.7, -0.4)}
+
+def transform(val, oldmax, newbounds):
+    newmin = float(newbounds[0])
+    newmax = float(newbounds[1])
+    return (val / (oldmax / (newmax - newmin))) + newmin
+
 def mandel(c):
     z = 0
     stop = iterations
@@ -16,10 +23,6 @@ def mandel(c):
             break
 
     return stop
-    # if abs(z) >= 2:
-    #     return (False, stop)
-    # else:
-    #     return (True, stop)
 
 hostname = socket.gethostname()
 data = None
@@ -27,8 +30,7 @@ with open('/root/machines/' + hostname, "r") as infile:
     data = [tuple(map(int, line.split(','))) for line in infile]
 
 for x, y in data:
-    # map coords into (-2, 2)
-    real = x / (width/2.0) - 1.5
-    img = y / (height/2.0) - 1.0
+    real = transform(x, width, mandelbox['x'])
+    img = transform(y, height, mandelbox['y'])
     c = complex(real, img)
     print(str(x) + ',' + str(y) + ',' + str(mandel(c)))
