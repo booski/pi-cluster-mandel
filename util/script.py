@@ -6,7 +6,7 @@ width = int(size)
 height = int(size)
 iterations = int(iterations)
 
-mandelbox = {'x':(-0.5, -0.4), 'y':(-0.6, -0.5)}
+mandelbox = {'x':(-0.38, -0.37), 'y':(-0.665, -0.655)}
 
 def transform(val, oldmax, newbounds):
     newmin = float(newbounds[0])

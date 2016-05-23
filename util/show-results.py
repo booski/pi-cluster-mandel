@@ -47,4 +47,5 @@ for x in range(img.size[0]):
             pixels[x,y] = getColor(iteration, itermax)
 
 
-img.convert('RGB').save(base + "/../images/" + "result-" + time.strftime("%y%m%d-%H%M") + ".png")
+img = img.convert('RGB')
+img.save(base + "/../images/" + "result-" + time.strftime("%y%m%d-%H%M") + ".png")
